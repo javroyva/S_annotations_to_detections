@@ -1,0 +1,69 @@
+{
+  "name": "CellsIA convert temps",
+  "description": "Conversion etiquetas a etiquetas de algoritmo",
+  "schema-version": "cellsia-0.1",
+  "container-image": {
+    "image": "javroyva/s_demo",
+    "type": "singularity"
+  },
+  "command-line": "[CELLSIA_HOST] [CELLSIA_PUBLIC_KEY] [CELLSIA_PRIVATE_KEY] [CELLSIA_ID_PROJECT] [CELLSIA_ID_SOFTWARE] [TERMS_LIST]",
+  "inputs": [
+    {
+      "id": "cellsia_host",
+      "value-key": "[@ID]",
+      "command-line-flag": "--@id",
+      "name": "CellsIA host",
+      "set-by-server": true,
+      "optional": false,
+      "type": "String"
+    },
+    {
+      "id": "cellsia_public_key",
+      "value-key": "[@ID]",
+      "command-line-flag": "--@id",
+      "name": "CellsIA public key",
+      "set-by-server": true,
+      "optional": false,
+      "type": "String"
+    },
+    {
+      "id": "cellsia_private_key",
+      "value-key": "[@ID]",
+      "command-line-flag": "--@id",
+      "name": "CellsIA private key",
+      "set-by-server": true,
+      "optional": false,
+      "type": "String"
+    },
+    {
+      "id": "cellsia_id_project",
+      "value-key": "[@ID]",
+      "command-line-flag": "--@id",
+      "name": "CellsIA project ID",
+      "set-by-server": true,
+      "optional": false,
+      "type": "Number"
+    },
+    {
+      "id": "cellsia_id_software",
+      "value-key": "[@ID]",
+      "command-line-flag": "--@id",
+      "name": "CellsIA software ID",
+      "set-by-server": true,
+      "optional": false,
+      "type": "Number"
+    },
+    {
+      "id": "terms_list",
+      "value-key": "[@ID]",
+      "command-line-flag": "--@id",
+      "name": "list_of_terms_in_project",
+      "set-by-server": false,
+      "optional": false,
+      "type": "ListDomain",
+      "uri": "/api/project/$currentProject$/term.json",
+      "uri-print-attribute": "name",
+      "uri-sort-attribute": "name"
+    }
+  ]
+}
