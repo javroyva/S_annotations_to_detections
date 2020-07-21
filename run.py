@@ -38,18 +38,28 @@ def run(cyto_job, parameters):
     project = cyto_job.project
     term_id = parameters.terms_list
 
+    logging.info("##################################")
     logging.info(f"Selected term is {term_id=}")
+    logging.info(f"Project is {str(project)}")
+
 
     term = Term()
     term.id = term_id
     term.fetch()
+
+    logging.info("##################################")
+    logging.info(term.to_json())
 
     annotations = AnnotationCollection()
     annotations.project = project.id
     annotations.fetch()
     nb_annotations = len(annotations)
     progress = 0
-    progress_delta = 100 / nb_annotations
+
+    logging.info("##################################")
+    logging.info(f" {nb_annotations} found")
+
+    progress_delta = 100 / (nb_annotations+1)
     
     for annotation in annotations:
         annotation.fetch()

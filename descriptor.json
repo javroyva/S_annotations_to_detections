@@ -6,10 +6,10 @@
     "image": "javroyva/s_demo",
     "type": "singularity"
   },
-  "command-line": "[CELLSIA_HOST] [CELLSIA_PUBLIC_KEY] [CELLSIA_PRIVATE_KEY] [CELLSIA_ID_PROJECT] [CELLSIA_ID_SOFTWARE] [TERMS_LIST]",
+  "command-line": "[CYTOMINE_HOST] [CYTOMINE_PUBLIC_KEY] [CYTOMINE_PRIVATE_KEY] [CYTOMINE_ID_PROJECT] [CYTOMINE_ID_SOFTWARE] [TERMS_LIST]",
   "inputs": [
     {
-      "id": "cellsia_host",
+      "id": "cytomine_host",
       "value-key": "[@ID]",
       "command-line-flag": "--@id",
       "name": "CellsIA host",
@@ -18,7 +18,7 @@
       "type": "String"
     },
     {
-      "id": "cellsia_public_key",
+      "id": "cytomine_public_key",
       "value-key": "[@ID]",
       "command-line-flag": "--@id",
       "name": "CellsIA public key",
@@ -27,7 +27,7 @@
       "type": "String"
     },
     {
-      "id": "cellsia_private_key",
+      "id": "cytomine_private_key",
       "value-key": "[@ID]",
       "command-line-flag": "--@id",
       "name": "CellsIA private key",
@@ -36,7 +36,7 @@
       "type": "String"
     },
     {
-      "id": "cellsia_id_project",
+      "id": "cytomine_id_project",
       "value-key": "[@ID]",
       "command-line-flag": "--@id",
       "name": "CellsIA project ID",
@@ -45,7 +45,7 @@
       "type": "Number"
     },
     {
-      "id": "cellsia_id_software",
+      "id": "cytomine_id_software",
       "value-key": "[@ID]",
       "command-line-flag": "--@id",
       "name": "CellsIA software ID",
