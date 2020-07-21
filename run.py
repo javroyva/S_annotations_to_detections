@@ -34,9 +34,11 @@ from cytomine.models import Project, ProjectCollection
 # -----------------------------------------------------------------------------------------------------------
 def run(cyto_job, parameters):
 
-    job = cyto_job.job
+    job     = cyto_job.job
     project = cyto_job.project
     term_id = parameters.terms_list
+
+    logging.info(f"Selected term is {term_id=}")
 
     term = Term()
     term.id = term_id
@@ -62,7 +64,7 @@ def run(cyto_job, parameters):
         new_annotation.save()
         annotation.delete()
         
-        logging.info("Finished processing annotation %s", annotaion.id)
+        logging.info("Finished processing annotation %s", annotation.id)
         progress += progress_delta
 
 if __name__ == "__main__":
