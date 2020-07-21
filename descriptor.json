@@ -3,7 +3,7 @@
   "description": "Conversion etiquetas a etiquetas de algoritmo",
   "schema-version": "cellsia-0.1",
   "container-image": {
-    "image": "javroyva/s_demo",
+    "image": "javroyva/s_annotations_to_detections",
     "type": "singularity"
   },
   "command-line": "[CYTOMINE_HOST] [CYTOMINE_PUBLIC_KEY] [CYTOMINE_PRIVATE_KEY] [CYTOMINE_ID_PROJECT] [CYTOMINE_ID_SOFTWARE] [TERMS_LIST]",
