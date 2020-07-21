@@ -44,7 +44,6 @@ def run(cyto_job, parameters):
 
     annotations = AnnotationCollection()
     annotations.project = project.id
-    annotations.image = image
     annotations.fetch()
     nb_annotations = len(annotations)
     progress = 0
