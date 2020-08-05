@@ -27,55 +27,45 @@ import shutil
 import cytomine
 from cytomine.models import ImageInstanceCollection, JobData
 from cytomine.models import ImageInstance, ImageInstanceCollection
-from cytomine.models import Annotation, AnnotationCollection, Term
+from cytomine.models import Annotation, AnnotationCollection
+from cytomine.models import Ontology, OntologyCollection
+from cytomine.models import Term, TermCollection
 from cytomine.models import Project, ProjectCollection
-
 
 # -----------------------------------------------------------------------------------------------------------
 def run(cyto_job, parameters):
 
-    job     = cyto_job.job
-    project = cyto_job.project
-    term_id = parameters.terms_list
+    job        = cyto_job.job
+    project_id = cyto_job.project
+    term_id    = parameters.terms_list
 
-    logging.info("##################################")
-    logging.info(f"Selected term is {term_id=}")
-    logging.info(f"Project is {str(project)}")
-
-
-    term = Term()
-    term.id = term_id
-    term.fetch()
-
-    logging.info("##################################")
-    logging.info(term.to_json())
+    logging.info(f"########### Parameters = {str(parameters)}")
+    logging.info(f"########### Term {str(term_id)}")
+    logging.info(f"########### Project {str(project_id)}")
 
     annotations = AnnotationCollection()
-    annotations.project = project.id
+    annotations.project = project_id
+    annotations.terms   = [term_id]
     annotations.fetch()
-    nb_annotations = len(annotations)
+
     progress = 0
+    progress_delta = 1.0 / (1.50 * len(annotations))
 
-    logging.info("##################################")
-    logging.info(f" {nb_annotations} found")
+    job.update(progress=progress, statusComment=f"Converting annotations from project {project_id}")
 
-    progress_delta = 100 / (nb_annotations+1)
-    
-    for annotation in annotations:
-        annotation.fetch()
+    new_annotations = AnnotationCollection()
+    for a in annotations:
+        if a.location is None:
+            a.fetch()
+        new_annotations.append(Annotation(a.location, a.image, a.term, a.project))
+    new_annotations.save(chunk = None)
 
-        job.update(progress=progress, statusComment="Converting annotation {}...".format(annotation.id))
+    job.update(progress=0.25, statusComment=f"Deleting old annotations...")
 
-        new_annotation = Annotation()
-        new_annotation.project = annotation.project
-        new_annotation.image = annotation.image
-        new_annotation.location = annotation.location
-        new_annotation.term = annotation.term
-        new_annotation.save()
-        annotation.delete()
-        
-        logging.info("Finished processing annotation %s", annotation.id)
+    for a in annotations:
+        a.delete()
         progress += progress_delta
+        job.update(progress=progress)
 
 if __name__ == "__main__":
     logging.debug("Command: %s", sys.argv)
